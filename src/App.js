@@ -15,6 +15,7 @@ function App() {
   );
 }
 
+
 const Message = ({ text }) => {
   return (
     <div className="Message">
