@@ -1,13 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import './App.scss';
 import Form from './form/Form';
+import Chats from './form/Chats';
+import Messages from './form/Messages';
+import Grid from '@mui/material/Grid';
+import Container from '@mui/material/Container';
+
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+
+const theme = createTheme({
+  palette: {
+    type: 'dark',
+    primary: {
+      main: '#3f51b5',
+    },
+    secondary: {
+      main: '#f50057',
+    },
+  },
+});
 
 function App() {
 
   const [messageStruct, setMessageStruct] = useState(
     {
-      text: 'Текст',
-      author: 'Автор'
+      text: '',
+      author: ''
     }
   )
 
@@ -15,6 +33,12 @@ function App() {
     { text: 'Текст1', author: 'Денис' },
     { text: 'Текст2', author: 'Денис' },
     { text: 'Текст3', author: 'Денис' }
+  ]);
+
+  const [chatList, setChatList] = useState([
+    { text: 'Чат1' },
+    { text: 'Чат2' },
+    { text: 'Чат3' }
   ]);
 
   useEffect(() => {
@@ -27,28 +51,26 @@ function App() {
 
   }, [messageList]);
 
-
   return (
-
-    <div className="App">
-      <header className="App-header">
-        <Form data={messageStruct} setData={setMessageStruct} setMessages={setMessageList}></Form>
-        {messageList.map((message, key) => <Message text={message.text}
-          author={message.author} key={key} />)}
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <div className="App">
+        <div className="App-header">Чат</div>
+        <Container maxWidth="lg">
+          <Grid container rowSpacing={3} columnSpacing={{ xs: 1, sm: 1, md: 1 }}>
+            <Grid item xs={12}>
+              <Form data={messageStruct} setData={setMessageStruct} setMessages={setMessageList}></Form>
+            </Grid>
+            <Grid item xs={2}>
+              <Chats data={chatList} setData={setChatList} ></Chats>
+            </Grid>
+            <Grid item xs={10}>
+              <Messages data={messageList} setData={setMessageList}></Messages>
+            </Grid>
+          </Grid>
+        </Container>
+      </div>
+    </ThemeProvider>
   );
-}
-
-const Message = ({ text, author }) => {
-  return (
-    <div className="Message">
-      <b className="Message-title">Текст сообщения: </b>
-      <b>{text} </b>
-      <b className="Message-title">Автор:  </b>
-      <b>{author} </b>
-    </div>
-  )
 }
 
 export default App;
