@@ -4,11 +4,12 @@ import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import SendIcon from '@mui/icons-material/Send';
 
-const Form = ({ data, setData, setMessages }) => {
+const Form = ({ idChat, data, setData, setMessages }) => {
 
   // Почему-то так не заработало((
   //const [text, author] = data;
 
+  const id = idChat;
   const text = data.text
   const author = data.author;
 
@@ -24,10 +25,11 @@ const Form = ({ data, setData, setMessages }) => {
 
     if (text.length > 0 && author.length > 0) {
 
-      setMessages(old => [...old, { text, author }])
+      setMessages(old => [...old, { id, text, author }])
 
       setData(
         {
+          id: "",
           text: "",
           author: ""
         }

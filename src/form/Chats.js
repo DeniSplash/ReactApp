@@ -1,7 +1,7 @@
 
 import List from '@mui/material/List';
-import ListItemText from '@mui/material/ListItemText';
 import ListItemButton from '@mui/material/ListItemButton';
+import { Link } from 'react-router-dom';
 
 const Chats = ({ data, setData }) => {
 
@@ -9,9 +9,9 @@ const Chats = ({ data, setData }) => {
 
   return (
     <List>
-      {chats.map((chat, key) => (
-        <ListItemButton>
-          <ListItemText primary={chat.text} key={key} />
+      {chats.map((chat, index) => (
+        <ListItemButton key={chat.id} >
+          <Link style={{ display: "block", flexGrow: "1" }} to={`${index}`}>{chat.text}</Link>
         </ListItemButton>)
       )}
     </List>
