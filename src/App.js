@@ -4,7 +4,7 @@ import HomePage from './pages/HomePage';
 import ChatsPage from './pages/ChatsPage';
 import ProfilePage from './pages/ProfilePage';
 import NavBar from './form/NavBar';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 
@@ -55,35 +55,19 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <div className="App">
-        <BrowserRouter>
-          <NavBar />
-          <Routes>
-            <Route path='/' element={<HomePage />} />
-            <Route path='chats' element={<ChatsPage messageStruct={messageStruct}
+        <NavBar />
+        <Routes>
+          <Route path='/' element={<HomePage />} />
+          <Route path='chats' element={<ChatsPage messageStruct={messageStruct}
+            setMessageStruct={setMessageStruct} setMessageList={setMessageList}
+            chatList={chatList} setChatList={setChatList} messageList={messageList} />}>
+            <Route path=':chatId' element={<ChatsPage messageStruct={messageStruct}
               setMessageStruct={setMessageStruct} setMessageList={setMessageList}
-              chatList={chatList} setChatList={setChatList} messageList={messageList} />}>
-              <Route path=':chatId' element={<ChatsPage messageStruct={messageStruct}
-                setMessageStruct={setMessageStruct} setMessageList={setMessageList}
-                chatList={chatList} setChatList={setChatList} messageList={messageList} />} />
-            </Route>
-            <Route path='profile' element={<ProfilePage userName={"Пользователь"} />} />
-            <Route path='*' element={<HomePage userName={"Ошибка"} />} />
-          </Routes>
-        </BrowserRouter>
-
-        {/* <Container maxWidth="lg">
-          <Grid container rowSpacing={3} columnSpacing={{ xs: 1, sm: 1, md: 1 }}>
-            <Grid item xs={12}>
-              <Form data={messageStruct} setData={setMessageStruct} setMessages={setMessageList}></Form>
-            </Grid>
-            <Grid item xs={2}>
-              <Chats data={chatList} setData={setChatList} ></Chats>
-            </Grid>
-            <Grid item xs={10}>
-              <Messages data={messageList} setData={setMessageList}></Messages>
-            </Grid>
-          </Grid>
-        </Container> */}
+              chatList={chatList} setChatList={setChatList} messageList={messageList} />} />
+          </Route>
+          <Route path='profile' element={<ProfilePage userName={"Пользователь"} />} />
+          <Route path='*' element={<HomePage userName={"Ошибка"} />} />
+        </Routes>
       </div>
     </ThemeProvider>
   );
