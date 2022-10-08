@@ -1,20 +1,20 @@
-
 import List from '@mui/material/List';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemButton from '@mui/material/ListItemButton';
+import { useSelector } from 'react-redux';
 
-const Messages = ({ idData, data, setData }) => {
+const Messages = ({ idData }) => {
 
-  const messages = data;
+  const msg = useSelector(state => state.messages);
+
+  let someMessage = msg.filter(item => item.id == idData);
 
   return (
-
     <List>
-      {messages.map((message, index) => (
+      {someMessage.map((message, index) => (
         <ListItemButton key={index}>
           <ListItemText primary={'Текст: ' + message.text} secondary={'Автор: ' + message.author} />
-        </ListItemButton>
-      )
+        </ListItemButton>)
       )}
     </List>
   )

@@ -3,56 +3,56 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import SendIcon from '@mui/icons-material/Send';
+import { useDispatch } from 'react-redux';
+import { addMesage } from '../slices/slicesMessages'
 
-const Form = ({ idChat, data, setData, setMessages }) => {
+const Form = ({ idChat }) => {
 
-  // Почему-то так не заработало((
-  //const [text, author] = data;
+  const dispatch = useDispatch();
 
-  const id = idChat;
-  const text = data.text
-  const author = data.author;
-
+  let newMsg = { id: idChat, text: '', author: '' }
   const inputRef = useRef(null);
+  const inputARef = useRef(null);
+
+  const addMessageHandler = () => {
+    if (newMsg.text.length > 0 && newMsg.author.length > 0) {
+      dispatch(addMesage(newMsg));
+      inputRef.current?.focus();
+      inputRef.current.value = '';
+      inputARef.current.value = '';
+      newMsg = { id: idChat, text: '', author: '' };
+
+    } else {
+      alert("Заполните все поля для ввода");
+    }
+  };
 
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
 
-  const submitForm = (e) => {
+  const setText = (text) => {
+    newMsg.text = text;
+    console.log(inputRef.current.value);
 
-    e.preventDefault();
+  }
 
-    if (text.length > 0 && author.length > 0) {
-
-      setMessages(old => [...old, { id, text, author }])
-
-      setData(
-        {
-          id: "",
-          text: "",
-          author: ""
-        }
-      )
-
-      inputRef.current?.focus();
-    } else {
-
-      alert("Заполните все поля для ввода");
-
-    }
-  };
+  const setAuthor = (author) => {
+    newMsg.author = author;
+  }
 
   return (
     <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 1, md: 1 }}>
       <Grid item xs={2}>
-        <TextField id="outlined-basic" inputRef={inputRef} label="Текст" variant="outlined" value={text} onChange={(e) => setData(old => ({ ...old, text: e.target.value }))} />
+        <TextField id="outlined-basic" inputRef={inputRef} label="Текст" variant="outlined"
+          onChange={(e) => setText(e.target.value)} />
       </Grid>
       <Grid item xs={2}>
-        <TextField id="outlined-basic" label="Автор" variant="outlined" value={author} onChange={(e) => setData(old => ({ ...old, author: e.target.value }))} />
+        <TextField id="outlined-basic" inputRef={inputARef} label="Автор" variant="outlined"
+          onChange={(e) => setAuthor(e.target.value)} />
       </Grid>
       <Grid item xs={1}>
-        <Button variant="contained" onClick={submitForm} endIcon={<SendIcon />}>Отправить</Button>
+        <Button variant="contained" onClick={addMessageHandler} endIcon={<SendIcon />}>Отправить</Button>
       </Grid>
     </Grid>
   )
