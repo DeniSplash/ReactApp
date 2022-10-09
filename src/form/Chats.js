@@ -17,7 +17,6 @@ const Chats = () => {
 
   const newChat = { id: count, text: `Чат${count}` }
 
-
   const addChatHandler = () => {
     dispatch(addChat(newChat));
   };

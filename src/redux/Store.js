@@ -1,11 +1,36 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { chatReducer } from '../slices/slicesChats'
 import { messageReducer } from '../slices/slicesMessages'
+import thunks from 'redux-thunk';
+import { addMesage } from '../slices/slicesMessages'
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+
+const persistConfig = {
+    key: 'root',
+    storage,
+}
+
+const rootReducer = combineReducers({
+    chats: chatReducer,
+    messages: messageReducer
+});
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+const middleware = store => next => action => {
+    if (action.type === 'message/addMesage' && action.payload.author !== 'mr.Robot') {
+        const botMessage = { id: action.payload.id, text: 'Привет', author: 'mr.Robot' };
+        setTimeout(() => store.dispatch(addMesage(botMessage)), 2000);
+    }
+    return next(action)
+}
 
 export const store = configureStore({
-    reducer: {
-        chats: chatReducer,
-        messages: messageReducer
-    }
-
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware().concat(middleware),
+    reducer: persistedReducer
 }, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+
+
+export const persistor = persistStore(store);
