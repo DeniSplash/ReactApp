@@ -5,14 +5,18 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import { store } from './redux/Store';
+import { store, persistor } from './redux/Store';
+import { PersistGate } from 'redux-persist/integration/react';
+import { CircularProgress } from '@mui/material';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   //<React.StrictMode>
   <BrowserRouter>
     <Provider store={store}>
+
       <App />
+
     </Provider>
   </BrowserRouter>
   // </React.StrictMode>

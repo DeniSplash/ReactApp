@@ -33,8 +33,6 @@ const Form = ({ idChat }) => {
 
   const setText = (text) => {
     newMsg.text = text;
-    console.log(inputRef.current.value);
-
   }
 
   const setAuthor = (author) => {
