@@ -1,7 +1,7 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { chatReducer } from '../slices/slicesChats'
 import { messageReducer } from '../slices/slicesMessages'
-import thunks from 'redux-thunk';
+import { postReducer } from '../slices/slicesPost'
 import { addMesage } from '../slices/slicesMessages'
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
@@ -13,7 +13,8 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
     chats: chatReducer,
-    messages: messageReducer
+    messages: messageReducer,
+    post: postReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
