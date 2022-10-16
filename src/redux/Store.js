@@ -5,6 +5,7 @@ import { postReducer } from '../slices/slicesPost'
 import { addMesage } from '../slices/slicesMessages'
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+import { userReducer } from '../slices/slicesUser'
 
 const persistConfig = {
     key: 'root',
@@ -14,7 +15,8 @@ const persistConfig = {
 const rootReducer = combineReducers({
     chats: chatReducer,
     messages: messageReducer,
-    post: postReducer
+    post: postReducer,
+    user: userReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
