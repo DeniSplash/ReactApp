@@ -10,6 +10,9 @@ const HomePage = () => {
       <div>
         <Link to={'/profile'}>Профиль </Link>
       </div>
+      <div>
+        <Link to={'/post'}>Посты </Link>
+      </div>
     </Container>
   )
 }
