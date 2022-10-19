@@ -1,11 +1,17 @@
 import { Container } from "@mui/system";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
+import { useAuth } from "../hook/useAuth";
 
 const HomePage = () => {
-  return (
+  const isAuth = useAuth().isAuth
+
+  return isAuth ? (
     <Container>
       <div>
         <Link to={'/chats'}>Чаты </Link>
+      </div>
+      <div>
+        <Link to={'/login'}>Логин </Link>
       </div>
       <div>
         <Link to={'/profile'}>Профиль </Link>
@@ -14,7 +20,7 @@ const HomePage = () => {
         <Link to={'/post'}>Посты </Link>
       </div>
     </Container>
-  )
+  ) : (<Navigate to={'/login'}></Navigate>);
 }
 
 export default HomePage;

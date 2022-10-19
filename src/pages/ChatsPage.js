@@ -4,10 +4,12 @@ import Form from '../form/Form';
 import Chats from '../form/Chats';
 import Messages from '../form/Messages';
 import { useParams } from "react-router-dom";
+import { useAuth } from "../hook/useAuth";
 
 const ChatsPage = () => {
 
   let params = useParams();
+
 
   //const messageList = useSelector(state => state.messages);
 

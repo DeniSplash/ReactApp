@@ -5,7 +5,6 @@ export const fetchPostsThunk = createAsyncThunk(
   async function () {
     const responce = await fetch('https://jsonplaceholder.typicode.com/posts');
     const data = responce.json();
-    console.log(data);
     return data;
   })
 
@@ -22,17 +21,17 @@ const postSlice = createSlice(
       [fetchPostsThunk.pending]: (state, action) => {
         state.loading = true;
         state.err = null;
-        console.log(state.loading);
+
       },
       [fetchPostsThunk.fulfilled]: (state, action) => {
         state.posts = [...action.payload];
         state.loading = false;
         state.err = null;
-        console.log(state.posts);
+
       },
       [fetchPostsThunk.rejected]: (state, action) => {
         state.err = true;
-        console.log(state.err);
+
       }
     },
   }
