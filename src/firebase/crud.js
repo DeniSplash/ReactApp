@@ -2,7 +2,7 @@ import { collection, getDocs, addDoc, doc } from "firebase/firestore"
 import { firestore } from "./firebase"
 
 export const addPost = async (data) => {
-    const results = addDoc(collection(firestore, 'posts'), data);
+    const results = addDoc(collection(firestore, 'postsnpm i'), data);
 }
 
 export const getAllPosts = async () => {
